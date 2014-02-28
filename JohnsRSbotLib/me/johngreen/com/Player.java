@@ -12,6 +12,15 @@ public class Player {
 	public static int getY(){
 		return ctx.players.local().getLocation().getY();
 	}
+	public static int getMaxHealth(){
+		return ctx.combatBar.getMaximumHealth();
+	}
+	public static float getHealthPersentage(){
+		return (getHealth()/(getMaxHealth()/100));
+	}
+	public static int getHealth(){
+		return ctx.combatBar.getHealth();
+	}
 	public static Tile getLocation(){
 		return ctx.players.local().getLocation();
 	}
@@ -22,5 +31,6 @@ public class Player {
 	public static boolean isMoving(){
 		return ctx.players.local().isInMotion();
 	}
+	
 	
 }

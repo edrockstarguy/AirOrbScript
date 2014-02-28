@@ -15,7 +15,7 @@ public class AvoidDeath extends Job{
 	}
 	@Override
 	public boolean validate() {
-		return true;
+		return Player.isBeingAttacked();
 	}
 
 
