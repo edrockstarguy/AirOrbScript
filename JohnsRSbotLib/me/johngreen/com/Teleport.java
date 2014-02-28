@@ -58,9 +58,7 @@ LUNAR_ISLAND(20,true);
 				ctx.players.local().getAnimation() == 16385;
 	}
 	//example
-	/*if(Teleport.isTeleporting(ctx)){
-		
-	}else{
+	/*if(!Teleport.isTeleporting(ctx)){
 		if(Teleport.isTeleportMenuOpen(ctx)){
 			Teleport.AL_KHARID.teleport(ctx);
 		}else{
