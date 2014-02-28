@@ -54,8 +54,7 @@ LUNAR_ISLAND(20,true);
 		w.get(1092, id).click();
 	}
 	public static boolean isTeleporting(MethodContext ctx){
-		return ctx.players.local().getAnimation() == 21288||
-				ctx.players.local().getAnimation() == 16385;
+		return ctx.players.local().getAnimation() == 16385;
 	}
 	//example
 	/*if(!Teleport.isTeleporting(ctx)){

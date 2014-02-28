@@ -1,7 +1,10 @@
 package JobsAirOrbs;
 
+import java.util.concurrent.Callable;
+
 import me.johngreen.com.Player;
 import me.johngreen.com.Widget.Teleport;
+import me.johngreen.com.airorbs.PathFinder;
 import me.johngreen.com.airorbs.Settings;
 
 import org.powerbot.script.methods.Bank.Amount;
@@ -9,6 +12,8 @@ import org.powerbot.script.methods.Equipment.Slot;
 import org.powerbot.script.methods.Lobby.Tab;
 import org.powerbot.script.methods.MethodContext;
 import org.powerbot.script.methods.Widgets;
+import org.powerbot.script.util.Condition;
+import org.powerbot.script.util.Random;
 import org.powerbot.script.wrappers.Area;
 import org.powerbot.script.wrappers.GameObject;
 import org.powerbot.script.wrappers.Item;
@@ -26,23 +31,21 @@ public class Alter extends Job{
 		if(Player.isBeingAttacked()){
 			return false;
 		}
-		Tile WayToAlterPath1_Pos1 = new Tile(3080,3574,0);
-		Tile WayToAlterPath1_Pos2 = new Tile(3091,3566,0);
-		if(isInRegion(ctx.players.local().getLocation(), WayToAlterPath1_Pos1,WayToAlterPath1_Pos2)){
+		if(PathFinder.isInRegion(ctx.players.local().getLocation(), new Area(Settings.Alter_Pos2,Settings.Alter_Pos1))){
 		return true;	
 		}
 		return false;
 	}
-
+	private boolean isMakingOrbs(){
+		Widgets w = new Widgets(ctx);
+		return w.get(1251, 0).isValid();
+	}						
 
 	public void execute() {
-		Tile WayToAlterPath1_Pos1 = new Tile(3080,3574,0);
-		Tile WayToAlterPath1_Pos2 = new Tile(3091,3566,0);
-		if(isInRegion(ctx.players.local().getLocation(), WayToAlterPath1_Pos1,WayToAlterPath1_Pos2)){
-			
 			Widgets w = new Widgets(ctx);
 			if(!ctx.backpack.select().id(Settings.CosmicRuneID).isEmpty()&&!ctx.backpack.select().id(Settings.OrbID).isEmpty()){
-				if(!w.get(1251, 0).isValid()){
+				Settings.Status = "1";
+				if(!isMakingOrbs()){
 					if(!w.get(1370, 20).isValid()){
 						w.get(1430, 14).click();
 						final GameObject object = ctx.objects.select().id(Settings.Alter).nearest().poll();
@@ -52,6 +55,15 @@ public class Alter extends Job{
 					}else{
 						w.get(1370, 20).click();
 					}
+				}else{
+					Condition.wait(new Callable<Boolean>(){
+						@Override
+						public Boolean call() throws Exception {
+							Settings.Status = "AntiBan";
+							return !isMakingOrbs();
+						}
+						
+					},1500+Random.nextInt(1, 2000),3);
 				}
 			}
 				
@@ -70,47 +82,5 @@ public class Alter extends Job{
 			
 
 			}
-		}
 	}
-	private static boolean isInRegion(Tile playerLoc,Tile pos1, Tile pos2){
-		  int ax = pos1.getX();
-		  int ay = pos1.getY();
-		  int bx = pos2.getX();
-		  int by = pos2.getY();
-		  int px = playerLoc.getX();
-		  int py = playerLoc.getY();
-		  if(ax>=bx){
-			  if(ay>=by){
-				  if(px>=bx&&px<=ax&&py>=by&&py<=ay){
-					  return true;
-				  }else{
-					  return false;
-				  }
-			  }else if(ay<=by){
-				  if(px>=bx&&px<=ax&&py<=by&&py>=ay){
-					  return true;
-				  }else{
-					  return false;
-				  }
-			  }
-			  return false;
-		  }else{
-			  if(ay>=by){
-				  if(px<=bx&&px>=ax&&py>=by&&py<=ay){
-					  return true;
-				  }else{
-					  return false;
-				  }  
-			  }else if(ay<=by){
-				  if(px<=bx&&px>=ax&&py<=by&&py>=ay){
-					  return true;
-				  }else{
-					  return false;
-				  }
-			  }
-			  return false;
-		  }
-	}
-
-	
 }

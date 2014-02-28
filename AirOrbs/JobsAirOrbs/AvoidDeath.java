@@ -20,7 +20,7 @@ public class AvoidDeath extends Job{
 
 
 	public void execute() {
-		if(Player.isBeingAttacked()&&!ctx.backpack.select().id(Settings.CamalotTeleportID).isEmpty()){
+		if(!ctx.backpack.select().id(Settings.CamalotTeleportID).isEmpty()){
 			final Item item = ctx.backpack.select().id(Settings.CamalotTeleportID).poll();
 			item.click();
 		}
