@@ -1,4 +1,4 @@
-package me.johngreen.com;
+package me.johngreen.com.Widget;
 
 import org.powerbot.script.methods.MethodContext;
 import org.powerbot.script.methods.Widgets;

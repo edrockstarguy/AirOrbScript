@@ -1,7 +1,7 @@
 package JobsAirOrbs;
 
 import me.johngreen.com.Player;
-import me.johngreen.com.Teleport;
+import me.johngreen.com.Widget.Teleport;
 import me.johngreen.com.airorbs.Settings;
 
 import org.powerbot.script.methods.Bank.Amount;

@@ -60,6 +60,7 @@ public class Main extends PollingScript implements PaintListener{
 		if(Settings.Areas!=null){
 		g.drawString("Area's inside: "+Settings.Areas.toString(), 60, 85);
 		}
+		g.drawString("Health persentage: "+Player.getHealthPersentage()+"%", 60, 95);
 	}
 	
 }

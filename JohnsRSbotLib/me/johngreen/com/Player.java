@@ -15,8 +15,10 @@ public class Player {
 	public static int getMaxHealth(){
 		return ctx.combatBar.getMaximumHealth();
 	}
-	public static float getHealthPersentage(){
-		return (getHealth()/(getMaxHealth()/100));
+	public static int getHealthPersentage(){
+		double a = getHealth()/100;
+		double b = getHealth()/a;
+		return (int) b;
 	}
 	public static int getHealth(){
 		return ctx.combatBar.getHealth();
